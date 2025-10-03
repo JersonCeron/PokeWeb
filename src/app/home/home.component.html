@@ -1,0 +1,72 @@
+<div class="page">
+    <div class="top">
+        <h1>Bienvenido a <br>
+            <a><img class="logo" src="https://fontmeme.com/permalink/251002/1e390f36d356b8e038cee0121589ee57.png" alt="fuente-pokemon" border="0"></a></h1>
+        <div class="search">
+            <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="search()" placeholder="Busca tu Pokemon">
+            <div class="actions text-center my-3">
+                <div (click)="loadRandomPokemons()"><img src="dado.png" alt=""></div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="pokeList">
+        <div class="pokeCard" *ngFor="let a of filteredPokemons">
+            <div class="topCard">
+                <div class="name"> {{a.name}}</div>
+                <div class="type"> {{a.types[0]}}</div>
+            </div>
+            <div class="bodyCard">
+            <img [src]="a.image" alt="">
+            <div class="btnDetails" (click)="details(a)">Detalles</div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="modal fade" id="pokemonModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content pokemon-modal">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ selectedPokemon?.name | titlecase }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-content">
+          <img [src]="selectedPokemon?.image" alt="pokemon" />
+          <div class="details">
+            <h6>Tipo:</h6>
+            <span class="badge type-badge" *ngFor="let t of selectedPokemon?.types">
+              {{ t }}
+            </span>
+
+            <h6 class="mt-3">Estadísticas:</h6>
+            <div class="stats" *ngFor="let s of selectedPokemon?.stats">
+              <span>{{ s.name | titlecase }}</span>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" [style.width.%]="s.value" aria-valuemin="0" aria-valuemax="200">
+                  {{ s.value }}
+                </div>
+              </div>
+            </div>
+
+            <h6 class="mt-3">Habilidades:</h6>
+            <ul>
+              <li *ngFor="let h of selectedPokemon?.abilities">
+                {{ h }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
