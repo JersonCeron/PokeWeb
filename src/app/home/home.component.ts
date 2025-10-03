@@ -30,9 +30,9 @@ export class HomeComponent {
             image: details.sprites.other['official-artwork'].front_default || details.sprites.front_default,
             abilities: details.abilities.map((a: any) => a.ability.name),
             types: details.types.map((t: any) => t.type.name),
-            stats: details.stats.map((s: any) =>({
+            stats: details.stats.map((s: any) => ({
               name: s.stat.name,
-              value: s.bae_stat
+              value: s.base_stat
             }))
           };
           this.pokemons.push(pokemon);
@@ -67,7 +67,6 @@ export class HomeComponent {
   this.pokemons = [];
   this.filteredPokemons = [];
 
- 
   const randomOffset = Math.floor(Math.random() * 1000);  
 
   this.pokeapi.getAllPokemons(30, randomOffset).subscribe((data: any) => {
@@ -75,7 +74,7 @@ export class HomeComponent {
       this.pokeapi.getPokemon(poke.name).subscribe((details: any) => {
         const pokemon = {
           name: details.name,
-          image: details.sprites.front_default,
+          image: details.sprites.other['official-artwork'].front_default || details.sprites.front_default,
           abilities: details.abilities.map((a: any) => a.ability.name),
           types: details.types.map((t: any) => t.type.name),
           stats: details.stats.map((s: any) => ({
