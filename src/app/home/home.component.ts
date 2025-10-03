@@ -22,7 +22,7 @@ export class HomeComponent {
   constructor(private pokeapi: PokeapiService) {}
 
   ngOnInit() {
-    this.pokeapi.getAllPokemons(50).subscribe((data: any) => {
+    this.pokeapi.getAllPokemons(30).subscribe((data: any) => {
       data.results.forEach((poke: any) => {
         this.pokeapi.getPokemon(poke.name).subscribe((details: any) => {
           const pokemon = {
